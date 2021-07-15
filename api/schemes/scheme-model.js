@@ -102,8 +102,6 @@ async function findById(scheme_id) { // EXERCISE B
     steps: []
   }
   rows.forEach( row => {
-    console.log(row)
-    console.log(row.step_id)
     if (row.step_id){
 
       res.steps.push({
@@ -158,6 +156,12 @@ function add(scheme) { // EXERCISE D
   /*
     1D- This function creates a new scheme and resolves to _the newly created scheme_.
   */
+ return db('schemes').insert(scheme)
+  .then( ([scheme_id]) => {
+    return db('schemes')
+      .where('scheme_id', scheme_id)
+      .first()
+  })
 }
 
 function addStep(scheme_id, step) { // EXERCISE E
